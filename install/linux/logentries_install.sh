@@ -335,11 +335,11 @@ if [ $FOUND == "1" ]; then
 		fi
 		USER_KEY_LINE=$(sed -n '2p' /etc/le/config)
 		USER_KEY=${USER_KEY_LINE#*= }
-		LE_COMMAND=$(le ls /hosts/`python -c "import socket; print socket.getfqdn().split('.')[0]"`/syslog | grep key)
+		LE_COMMAND=$(le ls /hosts/`python -c "import socket; print socket.getfqdn().split('.')[0]"` | grep key)
 		LOG_KEY=${LE_COMMAND#key = }
 
 		printf "Creating Events & Tags \n"
-		$CURL -O "https://raw.github.com/logentries/le/master/install/linux/seeding.py"
+		$CURL -O "https://raw.githubusercontent.com/logentries/le/master/install/linux/seeding.py"
 		TAG_ID=$(python2 seeding.py createEvent $USER_KEY $LOG_KEY)
 
 		echo "Seeding data, this can take up to 15 seconds"
